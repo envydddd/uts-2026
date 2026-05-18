@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 
 class ProjectResource extends Resource
 {
@@ -23,12 +26,40 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('judul_project')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('link_laporan')
-                    ->required()
-                    ->maxLength(255),
+                TextInput::make('judul_project')
+                ->label('Judul Project')
+                ->required(),
+
+            Textarea::make('deskripsi')
+                ->label('Deskripsi Project')
+                ->rows(3),
+
+            Textarea::make('latar_belakang')
+                ->label('Latar Belakang')
+                ->rows(5),
+
+            Textarea::make('fitur_utama')
+                ->label('Fitur Utama')
+                ->rows(5),
+
+            TextInput::make('teknologi')
+                ->label('Teknologi yang Digunakan')
+                ->placeholder('Laravel, Filament, Livewire, MariaDB, Docker'),
+
+            FileUpload::make('gambar_erd')
+                ->label('Gambar ERD')
+                ->image()
+                ->directory('projects/erd'),
+
+            FileUpload::make('gambar_flowchart')
+                ->label('Gambar Flowchart')
+                ->image()
+                ->directory('projects/flowchart'),
+
+            TextInput::make('link_laporan')
+                ->label('Link Laporan')
+                ->url()
+                ->required(),
             ]);
     }
 
