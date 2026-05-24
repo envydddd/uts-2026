@@ -3,66 +3,74 @@
 @section('content')
 
 <section 
-    class="bg-white rounded-2xl shadow-md px-12 py-10" 
+    class="bg-white rounded-2xl shadow-md"
     style="margin-top: 40px; padding: 40px 60px;"
 >
-    <h2 class="text-4xl font-bold mb-4">
-        Halo, Saya David Yehezkiel
+    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 30px;">
+        Halo, Saya {{ $profile->nama ?? 'Nama Belum Diisi' }}
     </h2>
 
-    <p class="text-lg mb-6">
-        Saya adalah mahasiswa Esa Unggul yang mendalami dalam jurusan Teknik Informatika.
+    <p style="font-size: 16px; margin-bottom: 35px;">
+        {{ $profile->subtitle ?? 'Subtitle belum diisi.' }}
     </p>
 
-    <h2 class="text-4xl font-bold mb-1">
-        About Me : 
+    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 15px;">
+        About Me :
     </h2>
 
-    <p class="mb-4">
-        Saya adalah mahasiswa Teknik Informatika di Universitas Esa Unggul 
-        yang memiliki ketertarikan dalam pengembangan website, sistem informasi,
-        dan teknologi berbasis modern framework. Saya fokus mempelajari
-        pengembangan aplikasi menggunakan Laravel, Filament, Livewire,
-        database management, serta integrasi API untuk membangun sistem
-        yang efisien dan mudah digunakan.
+    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 30px;">
+        {{ $profile->about_me ?? 'About me belum diisi.' }}
     </p>
 
-    <p class="mb-4">
-        Contact dan Project dapat ditambahkan dengan mengubah url dari uts.test menjadi uts.test/admin
+    <p style="font-size: 16px; margin-bottom: 60px;">
+        {{ $profile->admin_info ?? 'Contact dan Project dapat ditambahkan melalui admin.' }}
     </p>
 
     <div 
         style="
             display: flex;
             align-items: center;
-            gap: 40px;
-            margin-top: 40px;
+            gap: 60px;
         "
     >
-        <img 
-            src="{{ asset('images/david.png') }}" 
-            alt="Foto David"
-            style="
-                width: 250px;
-                border-radius: 20px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            "
-        >
+        @if ($profile && $profile->foto)
+            <img 
+                src="{{ asset('storage/' . $profile->foto) }}" 
+                alt="Foto {{ $profile->nama }}"
+                style="
+                    width: 330px;
+                    border-radius: 20px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+                "
+            >
+        @else
+            <div 
+                style="
+                    width: 330px;
+                    height: 430px;
+                    border-radius: 20px;
+                    background: #e5e7eb;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                "
+            >
+                Foto belum diisi
+            </div>
+        @endif
 
         <div>
-
-            <p style="margin-bottom: 15px; font-size: 20px;">
-                <strong>Nama:</strong> David Yehezkiel
+            <p style="font-size: 28px; margin-bottom: 30px;">
+                <strong>Nama:</strong> {{ $profile->nama ?? '-' }}
             </p>
 
-            <p style="margin-bottom: 15px; font-size: 20px;">
-                <strong>Keahlian:</strong> Laravel, Filament, Livewire, Database
+            <p style="font-size: 28px; margin-bottom: 30px;">
+                <strong>Keahlian:</strong> {{ $profile->keahlian ?? '-' }}
             </p>
 
-            <p style="font-size: 20px;">
-                <strong>Project Akhir:</strong> Website Pemesanan Meja Billiard
+            <p style="font-size: 28px;">
+                <strong>Project Akhir:</strong> {{ $profile->project_akhir ?? '-' }}
             </p>
-
         </div>
     </div>
 </section>
